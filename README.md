@@ -6,7 +6,6 @@ This Python script automates the creation of Roblox accounts with unique usernam
 
 ## what kind of settings is there?
 
-first off we have
 - Auto Launch: can be used to start new experinces for the newly created account - ("Default": True)
 - Show Codes: this is **only** used for this experince "10515146389" -
     ("Default": False)
