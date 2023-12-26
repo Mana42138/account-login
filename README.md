@@ -1,9 +1,8 @@
 # Roblox Account Generator
 
-## what is Roblox Account Generator
+This Python script automates the creation of Roblox accounts with unique usernames and secure passwords. The main goal of this project is educational, demonstrating web automation and data manipulation in Python.
 
-Roblox account generator is a generator that can be used as a quick alt generator
-it comes with a full set of settings when first run. I can be changed afterwards.
+
 
 ## what kind of settings is there?
 
@@ -17,3 +16,7 @@ first off we have [
 ]
 
 ## Setup
+
+Run the "run.py" and watch some magic
+
+## 
