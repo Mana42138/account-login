@@ -7,10 +7,10 @@ from datetime import date
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from auth import AccountManager
 import requests
 import json
 import psutil
-from auth import AccountManager
 
 def status(text):
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -100,7 +100,6 @@ if not os.path.exists(codes_file):
 
 if not os.path.exists(token_file):
     writefile("token.txt", "Mana was here!")
-    
 
 # Lists of days, months and years
 days = [str(i + 1) for i in range(10, 28)]
