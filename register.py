@@ -136,7 +136,7 @@ def create_account(url, first_names, last_names):
         GAME_ID = settings["GAME_ID"]
 
         status("Initializing webdriver...")
-        driver = webdriver.Edge()
+        driver = webdriver.Chrome()
         driver.set_window_size(1200, 800)
         driver.set_window_position(0, 0)
         # driver.minimize_window()
