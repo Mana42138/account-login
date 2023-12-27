@@ -12,26 +12,27 @@ import requests
 import json
 import psutil
 
+# import ctypes
+# ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) # Run as admin if needed
+
 def status(text):
     os.system('cls' if os.name == 'nt' else 'clear')
     print("\033[1;34m" + text + "\033[0m")
 
 def readfile(datafile):
-    try:
-        with open(datafile, "r") as file:
+        files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
+        with open(os.path.join(files_path, datafile), "r") as file:
             data = json.load(file)
-        return data
-    except json.decoder.JSONDecodeError:
-        with open(datafile, "r") as file:
-            data = file.read()
         return data
     
 def writefile(datafile, data):
     try:
-        with open(datafile, "w") as file:
+        files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
+        with open(os.path.join(files_path, datafile), "w") as file:
             json.dump(data, file, indent=4)
     except json.decoder.JSONDecodeError:
-        with open(datafile, "w") as file:
+        files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
+        with open(os.path.join(files_path, datafile), "w") as file:
             file.write(data)
 
 def terminate_process(process_name):
@@ -86,11 +87,26 @@ if not os.path.exists(text_files_folder):
     os.makedirs(text_files_folder)
 
 if not os.path.exists(settings_file):
+    status("Initializing first time setup...")
+    AUTO_LAUNCH = input("## Auto Launch ##\nWould you like to enable this feature? \n (y/n)")
+    if AUTO_LAUNCH=="y":AUTO_LAUNCH=True
+    else:AUTO_LAUNCH=False
+
+    SHOW_CODES = input("## Show Codes ##\nWould you like to enable this feature? \n (y/n)")
+
+    if SHOW_CODES=="y":SHOW_CODES=True
+    else:SHOW_CODES=False
+
+    PASSWORD = input("## PASSWORD ##\n Please type your password: ")
+
+    GAME_ID = input("## GAME_ID ##\n Please type the game id you want to join: ")
+
+
     data = {
-        "AUTO_LAUNCH": True,
-        "SHOW_CODES": False,
-        "PASSWORD": "PASTE YOUR PASSWORD HERE!",
-        "GAME_ID": "10515146389"
+        "AUTO_LAUNCH": AUTO_LAUNCH,
+        "SHOW_CODES": SHOW_CODES,
+        "PASSWORD": PASSWORD,
+        "GAME_ID": GAME_ID
     }
     writefile("settings.json", data)
 
@@ -221,9 +237,8 @@ def create_account(url, first_names, last_names):
             status("Cookie found...")
             result = [cookie.get('value'), username, password]
             save_account_info(result)
-
-            with open("token.txt", "w") as file:
-                file.write(result[0])
+            
+            writefile("token.txt", result[0])
             
             if result is not None:
                 status("Successfully created!")
@@ -258,4 +273,3 @@ def main():
     status("Adding item!")
     save_altmanager_login(stuff, item)
     terminate_process(program_name)
-

@@ -17,5 +17,3 @@ This Python script automates the creation of Roblox accounts with unique usernam
 ## Setup
 
 Run the "run.py" and watch some magic
-
-## 
