@@ -142,7 +142,7 @@ def create_account(url, first_names, last_names):
         # driver.minimize_window()
         driver.get(url)
         time.sleep(2)
-
+        
         # HTML items
         status("searching for items on the website")
         accept_button = driver.find_element(By.CLASS_NAME, "btn-cta-lg")
