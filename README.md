@@ -17,3 +17,4 @@ This Python script automates the creation of Roblox accounts with unique usernam
 ## Setup
 
 Run the "run.py" and watch some magic
+use the command "pip install -r requirements.txt" in your Terminal. This will install all the packages listed in your requirements.txt file.
