@@ -30,4 +30,4 @@ def copy_next_word(event):
 def main_copy():
     keyboard.on_press(copy_next_word)
 
-    keyboard.wait('esc')
+    keyboard.wait('f5')
