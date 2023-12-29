@@ -1,3 +1,6 @@
 psutil
 requests
 selenium
+threading
+keyboard
+pyperclip
