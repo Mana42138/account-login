@@ -11,6 +11,7 @@ from auth import AccountManager
 import requests
 import json
 import psutil
+import threading
 
 # import ctypes
 # ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) # Run as admin if needed
@@ -97,6 +98,11 @@ if not os.path.exists(settings_file):
     if SHOW_CODES=="y":SHOW_CODES=True
     else:SHOW_CODES=False
 
+    AUTO_COPY_CODES = input("## Auto Cody Codes ##\nWould you like to enable this feature? \n (y/n)")
+
+    if AUTO_COPY_CODES=="y":AUTO_COPY_CODES=True
+    else:AUTO_COPY_CODES=False
+
     PASSWORD = input("## PASSWORD ##\n Please type your password: ")
 
     GAME_ID = input("## GAME_ID ##\n Please type the game id you want to join: ")
@@ -105,6 +111,7 @@ if not os.path.exists(settings_file):
     data = {
         "AUTO_LAUNCH": AUTO_LAUNCH,
         "SHOW_CODES": SHOW_CODES,
+        "AUTO_COPY_CODES": AUTO_COPY_CODES,
         "PASSWORD": PASSWORD,
         "GAME_ID": GAME_ID
     }
@@ -152,7 +159,7 @@ def create_account(url, first_names, last_names):
         GAME_ID = settings["GAME_ID"]
 
         status("Initializing webdriver...")
-        driver = webdriver.Edge()
+        driver = webdriver.Chrome()
         driver.set_window_size(1200, 800)
         driver.set_window_position(0, 0)
         # driver.minimize_window()
@@ -166,6 +173,7 @@ def create_account(url, first_names, last_names):
             accept_button.click()
         except:
             pass
+
         username_input = driver.find_element("id", "signup-username")
         username_error = driver.find_element("id", "signup-usernameInputValidation")
         password_input = driver.find_element("id", "signup-password")
@@ -226,7 +234,7 @@ def create_account(url, first_names, last_names):
                 time.sleep(1)
         except:
             pass
-
+            
         # Wait until the cookie is found or the maximum time has passed
         while not cookie_found and elapsed_time < 180:
             status("Waiting for the cookie...")
