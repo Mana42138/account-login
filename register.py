@@ -152,7 +152,7 @@ def create_account(url, first_names, last_names):
         GAME_ID = settings["GAME_ID"]
 
         status("Initializing webdriver...")
-        driver = webdriver.Chrome()
+        driver = webdriver.Edge()
         driver.set_window_size(1200, 800)
         driver.set_window_position(0, 0)
         # driver.minimize_window()
@@ -161,8 +161,11 @@ def create_account(url, first_names, last_names):
         
         # HTML items
         status("searching for items on the website")
-        accept_button = driver.find_element(By.CLASS_NAME, "btn-cta-lg")
-        accept_button.click()
+        try:
+            accept_button = driver.find_element(By.CLASS_NAME, "btn-cta-lg")
+            accept_button.click()
+        except:
+            pass
         username_input = driver.find_element("id", "signup-username")
         username_error = driver.find_element("id", "signup-usernameInputValidation")
         password_input = driver.find_element("id", "signup-password")
