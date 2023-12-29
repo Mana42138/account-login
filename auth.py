@@ -6,6 +6,7 @@ import requests
 class AccountManager:
     def __init__(self, cookie):
         self.cookie = cookie
+        self.retry = False
 
     def get_xsrf(self):
         auth_url = "https://auth.roblox.com/v2/logout"
@@ -21,10 +22,21 @@ class AccountManager:
         return ticket
 
     def job_id(self):
-        response = requests.get("https://games.roblox.com/v1/games/10515146389/servers/0?sortOrder=1&excludeFullGames=true&limit=25").json()
-        data = response["data"][7]
-        print("Job-ID: ", data["id"])
-        return data["id"]
+        try:
+            response = requests.get("https://games.roblox.com/v1/games/10515146389/servers/0?sortOrder=1&excludeFullGames=true&limit=25").json()
+            data = response["data"][7]
+            print("Job-ID: ", data["id"])
+            return data["id"]
+        except KeyError:
+            response = requests.get("https://games.roblox.com/v1/games/10515146389/servers/0?sortOrder=1&excludeFullGames=true&limit=25").json()
+            data = response["data"][4]
+            print("Job-ID: ", data["id"])
+            return data["id"]
+        finally:
+            response = requests.get("https://games.roblox.com/v1/games/10515146389/servers/0?sortOrder=1&excludeFullGames=true&limit=25").json()
+            data = response["data"][0]
+            print("Job-ID: ", data["id"])
+            return data["id"]
     
     def launch_roblox(self, ticket, place_id, job_id): # ticket, place_id, access_code, link_code, join_vip, follow_user, job_id
         roblox_executable_path = None
@@ -47,5 +59,5 @@ class AccountManager:
 
         if platform.system() == "Windows":
             subprocess.Popen([roblox_executable_path, arguments])
-
+        
         return "Success"
