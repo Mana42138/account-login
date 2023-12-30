@@ -56,7 +56,7 @@ class AccountManager:
 
 
         arguments = f"--app -t {ticket} -j \"https://assetgame.roblox.com/game/PlaceLauncher.ashx?request=RequestGame{'' if not job_id else 'Job'}&placeId={place_id}{'' if not job_id else '&gameId=' + job_id}&isPlayTogetherGame=false\""
-
+        
         if platform.system() == "Windows":
             subprocess.Popen([roblox_executable_path, arguments])
         
