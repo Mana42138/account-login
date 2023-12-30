@@ -6,7 +6,6 @@ import requests
 class AccountManager:
     def __init__(self, cookie):
         self.cookie = cookie
-        self.retry = False
 
     def get_xsrf(self):
         auth_url = "https://auth.roblox.com/v2/logout"
@@ -30,11 +29,6 @@ class AccountManager:
         except KeyError:
             response = requests.get("https://games.roblox.com/v1/games/10515146389/servers/0?sortOrder=1&excludeFullGames=true&limit=25").json()
             data = response["data"][4]
-            print("Job-ID: ", data["id"])
-            return data["id"]
-        finally:
-            response = requests.get("https://games.roblox.com/v1/games/10515146389/servers/0?sortOrder=1&excludeFullGames=true&limit=25").json()
-            data = response["data"][0]
             print("Job-ID: ", data["id"])
             return data["id"]
     
