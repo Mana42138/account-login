@@ -1,6 +1,10 @@
+from register import readfile
 import keyboard
 import pyperclip
 
+data = readfile("settings.json")
+
+COPY_CODES_KEY = data["COPY_CODES_KEY"]
 
 word_list = [
 "UPD4",
@@ -17,7 +21,7 @@ index = 0
 
 def copy_next_word(event):
     global index
-    if event.name == 'f':  # you can change 'f' to any key
+    if event.name == COPY_CODES_KEY:  # you can change 'f' to any key
         if index < len(word_list):
             word_to_copy = word_list[index]
             index += 1
