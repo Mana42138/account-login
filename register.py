@@ -98,10 +98,12 @@ if not os.path.exists(settings_file):
     if SHOW_CODES=="y":SHOW_CODES=True
     else:SHOW_CODES=False
 
-    AUTO_COPY_CODES = input("## Auto Cody Codes ##\nWould you like to enable this feature? \n (y/n)")
+    AUTO_COPY_CODES = input("## Auto Copy Codes ##\nWould you like to enable this feature? \n (y/n)")
 
     if AUTO_COPY_CODES=="y":AUTO_COPY_CODES=True
     else:AUTO_COPY_CODES=False
+
+    COPY_CODES_KEY = input("## Copy Codes Key ##\n Please press the key you want to use: ")
 
     PASSWORD = input("## PASSWORD ##\n Please type your password: ")
 
@@ -112,6 +114,7 @@ if not os.path.exists(settings_file):
         "AUTO_LAUNCH": AUTO_LAUNCH,
         "SHOW_CODES": SHOW_CODES,
         "AUTO_COPY_CODES": AUTO_COPY_CODES,
+        "COPY_CODES_KEY": COPY_CODES_KEY.lower(),
         "PASSWORD": PASSWORD,
         "GAME_ID": GAME_ID
     }
