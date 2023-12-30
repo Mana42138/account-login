@@ -11,7 +11,6 @@ from auth import AccountManager
 import requests
 import json
 import psutil
-import threading
 
 # import ctypes
 # ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1) # Run as admin if needed
@@ -103,6 +102,11 @@ if not os.path.exists(settings_file):
     if AUTO_COPY_CODES=="y":AUTO_COPY_CODES=True
     else:AUTO_COPY_CODES=False
 
+    AUTO_CLOSE_ROBLOX = input("## Auto Close Roblox ##\nWould you like to enable this feature? \n (y/n)")
+
+    if AUTO_CLOSE_ROBLOX=="y":AUTO_CLOSE_ROBLOX=True
+    else:AUTO_CLOSE_ROBLOX=False
+
     COPY_CODES_KEY = input("## Copy Codes Key ##\n Please press the key you want to use: ")
 
     PASSWORD = input("## PASSWORD ##\n Please type your password: ")
@@ -116,7 +120,8 @@ if not os.path.exists(settings_file):
         "AUTO_COPY_CODES": AUTO_COPY_CODES,
         "COPY_CODES_KEY": COPY_CODES_KEY.lower(),
         "PASSWORD": PASSWORD,
-        "GAME_ID": GAME_ID
+        "GAME_ID": GAME_ID,
+        "AUTO_CLOSE_ROBLOX": AUTO_CLOSE_ROBLOX
     }
     writefile("settings.json", data)
 
@@ -148,18 +153,21 @@ def gen_user(first_names, last_names):
     return full
 
 def create_account(url, first_names, last_names):
-        terminate_process(program_name)
-        status("Starting to create an account...")
-        cookie_found = False
-        username_found = False
-        elapsed_time = 0
-        
         # Config
         settings = readfile("settings.json")
         AUTO_LAUNCH = settings["AUTO_LAUNCH"]
         PASSWORD = settings["PASSWORD"]
         SHOW_CODES = settings["SHOW_CODES"]
         GAME_ID = settings["GAME_ID"]
+        AUTO_CLOSE_ROBLOX = settings["AUTO_CLOSE_ROBLOX"]
+
+        if AUTO_CLOSE_ROBLOX:
+            terminate_process(program_name)
+
+        status("Starting to create an account...")
+        cookie_found = False
+        username_found = False
+        elapsed_time = 0
 
         status("Initializing webdriver...")
         driver = webdriver.Chrome()
@@ -286,4 +294,6 @@ def main():
     item = input("Item: ")
     status("Adding item!")
     save_altmanager_login(stuff, item)
-    terminate_process(program_name)
+    
+    if readfile("settings.json")["AUTO_CLOSE_ROBLOX"]:
+        terminate_process(program_name)
