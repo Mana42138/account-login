@@ -166,9 +166,6 @@ def gen_user(first_names, last_names):
     full = f"{first}{last}_{secrets.choice([i for i in range(1, 999)]):03}"
     return full
 
-proxy_server_url = list(set(readfile("ABC.txt")))
-print(proxy_server_url)
-
 def create_account(url, first_names, last_names):
         # Config
         settings = readfile("settings.json")
