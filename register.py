@@ -20,10 +20,16 @@ def status(text):
     print("\033[1;34m" + text + "\033[0m")
 
 def readfile(datafile):
+    try:
         files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
         with open(os.path.join(files_path, datafile), "r") as file:
             data = json.load(file)
         return data
+    except:
+        files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
+        with open(os.path.join(files_path, datafile), "r") as file:
+            return file.read()
+
     
 def writefile(datafile, data):
     try:
@@ -50,6 +56,7 @@ program_name = "RobloxPlayerBeta.exe"
 first_names_url = "https://raw.githubusercontent.com/Mana42138/Gen-RX/main/firstnames.txt"
 last_names_url = "https://raw.githubusercontent.com/Mana42138/Gen-RX/main/lastnames.txt"
 codes = requests.get("https://raw.githubusercontent.com/Mana42138/Gen-RX/main/codes.txt")
+proxies = requests.get("https://raw.githubusercontent.com/Mana42138/Gen-RX/main/proxy-list")
 roblox_url = "https://www.roblox.com/"
 
 status("Getting first names...")
@@ -69,6 +76,11 @@ if codes.status_code != 200:
     status("Code request failed. Re-Executing")
     sys.exit()
 
+if proxies.status_code != 200:
+    status("proxies request failed. Re-Executing")
+    sys.exit()
+
+
 # File paths
 files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
 text_files_folder = os.path.join(files_path, "Accounts")
@@ -78,6 +90,8 @@ text_file2 = os.path.join(text_files_folder, f"AltManagerLogin.txt")
 settings_file = os.path.join(files_path, "settings.json")
 
 codes_file = os.path.join(files_path, "codes.txt")
+
+codes_list = list(set(codes.text.splitlines()))
 
 token_file = os.path.join(files_path, "token.txt")
 
@@ -152,6 +166,9 @@ def gen_user(first_names, last_names):
     full = f"{first}{last}_{secrets.choice([i for i in range(1, 999)]):03}"
     return full
 
+proxy_server_url = list(set(readfile("ABC.txt")))
+print(proxy_server_url)
+
 def create_account(url, first_names, last_names):
         # Config
         settings = readfile("settings.json")
@@ -168,9 +185,8 @@ def create_account(url, first_names, last_names):
         cookie_found = False
         username_found = False
         elapsed_time = 0
-
         status("Initializing webdriver...")
-        driver = webdriver.Chrome()
+        driver = webdriver.Edge()
         driver.set_window_size(1200, 800)
         driver.set_window_position(0, 0)
         # driver.minimize_window()
@@ -212,7 +228,7 @@ def create_account(url, first_names, last_names):
 
         while not username_found:
             status("Selecting username...")
-            username = gen_user(first_names, last_names)
+            username = f"{gen_user(first_names, last_names)}Inc"
             username_input.clear()
             username_input.send_keys(username)
             time.sleep(1)
@@ -273,7 +289,7 @@ def create_account(url, first_names, last_names):
                     Manager.launch_roblox(ticket, str(GAME_ID), job_id)
 
         if SHOW_CODES:
-            status(f"##Codes## \n\n {codes}")
+            status(f"##Codes## \n\n {codes_list}")
         return result
 
 # Save account information to text file
