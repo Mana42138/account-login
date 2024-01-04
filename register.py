@@ -30,7 +30,7 @@ def readfile(datafile):
         with open(os.path.join(files_path, datafile), "r") as file:
             return file.read()
 
-    
+
 def writefile(datafile, data):
     try:
         files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -89,11 +89,7 @@ text_file2 = os.path.join(text_files_folder, f"AltManagerLogin.txt")
 
 settings_file = os.path.join(files_path, "settings.json")
 
-codes_file = os.path.join(files_path, "codes.txt")
-
 codes_list = list(set(codes.text.splitlines()))
-
-token_file = os.path.join(files_path, "token.txt")
 
 
 # Create folder if it does not exist
@@ -138,13 +134,6 @@ if not os.path.exists(settings_file):
         "AUTO_CLOSE_ROBLOX": AUTO_CLOSE_ROBLOX
     }
     writefile("settings.json", data)
-
-if not os.path.exists(codes_file):
-    codes = list(codes.text.splitlines())
-    writefile("codes.txt", codes)
-
-if not os.path.exists(token_file):
-    writefile("token.txt", "Mana was here!")
 
 # Lists of days, months and years
 days = [str(i + 1) for i in range(10, 28)]
@@ -273,8 +262,6 @@ def create_account(url, first_names, last_names):
             result = [cookie.get('value'), username, password]
             save_account_info(result)
             
-            writefile("token.txt", result[0])
-            
             if result is not None:
                 status("Successfully created!")
                 time.sleep(.2)
@@ -286,7 +273,9 @@ def create_account(url, first_names, last_names):
                     Manager.launch_roblox(ticket, str(GAME_ID), job_id)
 
         if SHOW_CODES:
-            status(f"##Codes## \n\n {codes_list}")
+            status(f"##Codes## \n\n")
+            for v in codes_list:
+                print(v)
         return result
 
 # Save account information to text file
