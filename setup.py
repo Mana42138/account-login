@@ -19,7 +19,7 @@ def writefile(datafile, data):
     try:
         files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
         with open(os.path.join(files_path, datafile), "wb") as file:
-            file.write(data)  # Write binary data directly
+            file.write(data)
     except Exception as e:
         print(f"Error occurred: {e}")
 
