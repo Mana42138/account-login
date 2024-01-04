@@ -26,6 +26,7 @@ def writefile(datafile, data):
 files_path = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 def Main():
+    print("Starting...")
     Request_Links = {
         "register.py": "https://raw.githubusercontent.com/Mana42138/account-login/main/register.py",
         "auth.py": "https://raw.githubusercontent.com/Mana42138/account-login/main/auth.py",
