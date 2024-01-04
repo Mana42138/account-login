@@ -13,6 +13,16 @@ start /wait %PYTHON_EXE% /quiet /passive InstallAllUsers=0 PrependPath=1 Include
 
 del %PYTHON_EXE%
 
+Loader.py
+
+timeout /t 1 /nobreak
+
 pip install -r requirements.txt
+
+timeout /t 1 /nobreak
+
+setup.py
+
+timeout /t 1 /nobreak
 
 main.py
