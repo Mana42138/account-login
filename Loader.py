@@ -17,7 +17,7 @@ if os.path.exists(Item_Path):
 
 print("Installing Setup / requirements.txt")
 with open(os.path.join(files_path, file_name), "wb") as file:
-    file.write(requests.get("https://raw.githubusercontent.com/Mana42138/account-login/main/setup.py").content)
+    file.write(requests.get("https://raw.githubusercontent.com/Mana42138/Gen-RX/main/setup.py").content)
 
 with open(os.path.join(files_path, "requirements.txt"), "wb") as file:
-    file.write(requests.get("https://raw.githubusercontent.com/Mana42138/account-login/main/requirements.txt").content)
+    file.write(requests.get("https://raw.githubusercontent.com/Mana42138/Gen-RX/main/requirements.txt").content)
